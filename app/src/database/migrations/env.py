@@ -7,6 +7,7 @@ from sqlalchemy import pool
 from src.config.config import settings
 from src.database.database import Base
 from src.models.device import Device
+from src.models.device_data import DeviceData
 from src.models.user import User
 
 # this is the Alembic Config object, which provides
