@@ -68,6 +68,7 @@ async def retrieve_user_devices(
 
     return await device_crud.retrieve_by_user_id(session=session, user_id=user.id)
 
+
 @router.post(
     path='/my-devices/{device_id}/send_data/',
     status_code=status.HTTP_201_CREATED,
@@ -93,7 +94,7 @@ async def send_user_device_data(
         )
 
     create_data = DeviceDataCreateSchema(
-        device_id = device_id,
+        device_id=device_id,
         **create_data.model_dump()
     )
 
