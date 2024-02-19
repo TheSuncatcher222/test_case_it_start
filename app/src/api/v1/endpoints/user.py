@@ -1,16 +1,21 @@
+from datetime import date
 import uuid
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.api.dependencies.auth import get_current_user
+from src.celery.device_data.tasks import get_data_analysis
 from src.crud.device_crud import device_crud
 from src.crud.device_data_crud import device_data_crud
 from src.crud.user_crud import user_crud
 from src.database.database import get_async_session
 from src.models.user import User
 from src.schemas.device import DeviceRepresentSchema
-from src.schemas.device_data import DeviceDataCreateSchema, DeviceDataPreCreateSchema
+from src.schemas.device_data import (
+    DeviceDataCreateSchema, DeviceDataPreCreateSchema,
+    FromDate,
+)
 from src.schemas.user import UserCreate, UserPreCreate, UserResponse
 from src.security.password import hash_password
 
@@ -99,3 +104,22 @@ async def send_user_device_data(
     )
 
     return await device_data_crud.create(session=session, obj_data=create_data)
+
+
+@router.post(
+    path='/get-analysis/',
+    status_code=status.HTTP_200_OK,
+)
+async def get_devices_data_analysis(
+    from_date: FromDate,
+    current_user: User = Depends(get_current_user),
+):
+    from_date: dict[str, date] = from_date.model_dump()
+    from_date: date = from_date.get('from_date')
+    user_id: int = current_user.id
+
+    get_data_analysis.apply_async(
+        args=(user_id, from_date)
+    )
+
+    return
