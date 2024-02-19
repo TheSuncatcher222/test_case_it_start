@@ -18,7 +18,6 @@ class Settings(BaseSettings):
     POSTGRES_DB: str = 'test_db'
     POSTGRES_PASSWORD: str = 'db_pass'
     POSTGRES_USER: str = 'db_user'
-
     REDIS_HOST: str = 'it_start_redis'
     REDIS_PORT: int = 6379
 
@@ -33,10 +32,10 @@ class Settings(BaseSettings):
     WORKERS_AMOUNT: int = 4
 
     # Настройки токенов JWT.
-    JWT_SECRET_KEY: str
-    JWT_ALGORITHM: str
-    JWT_ACCESS_TOKEN_EXPIRES_MIN: int
-    JWT_REFRESH_TOKEN_EXPIRES_MIN: int
+    JWT_SECRET_KEY: str = 'jwt_secret_key'
+    JWT_ALGORITHM: str = 'HS256'
+    JWT_ACCESS_TOKEN_EXPIRES_MIN: int = 600
+    JWT_REFRESH_TOKEN_EXPIRES_MIN: int = 3600
 
 
 settings = Settings()
