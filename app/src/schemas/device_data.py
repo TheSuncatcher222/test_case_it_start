@@ -1,3 +1,6 @@
+from datetime import date
+from typing import Optional
+
 from pydantic import BaseModel
 
 
@@ -17,3 +20,7 @@ class DeviceDataCreateSchema(DeviceDataPreCreateSchema):
 
 class DeviceDataUpdateSchema(DeviceDataCreateSchema):
     pass
+
+
+class FromDate(BaseModel):
+    from_date: Optional[date] = None
