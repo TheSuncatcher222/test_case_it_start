@@ -7,5 +7,4 @@ router = APIRouter()
 router.include_router(
     router=api_v1_router,
     prefix='/v1',
-    tags=['v1'],
 )
