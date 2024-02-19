@@ -7,6 +7,7 @@ from src.database.database import Base
 
 if TYPE_CHECKING:
     from src.models.user import User
+    from src.models.device_data import DeviceData
 
 
 class Device(Base):
@@ -34,4 +35,9 @@ class Device(Base):
             ondelete='CASCADE',
         ),
         comment='Пользователь устройства',
+    )
+    data: Mapped['DeviceData'] = relationship(
+        'DeviceData',
+        back_populates='device',
+        single_parent=True,
     )
