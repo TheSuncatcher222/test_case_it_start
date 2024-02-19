@@ -1,10 +1,11 @@
 from typing import AsyncGenerator
 
+from sqlalchemy import create_engine
 from sqlalchemy.ext.asyncio import (
     AsyncEngine, AsyncSession, async_sessionmaker,
     create_async_engine,
 )
-from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.orm import DeclarativeBase, sessionmaker
 
 from src.config.config import settings
 
@@ -29,6 +30,16 @@ async_session_maker: async_sessionmaker = async_sessionmaker(
 async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
     async with async_session_maker() as session:
         yield session
+
+
+DATABASE_SYNC_URL: str = f'postgresql+psycopg2://{DATABASE_URL}'
+
+sync_engine = create_engine(
+    url=DATABASE_SYNC_URL,
+    echo=settings.DEBUG_DB,
+)
+
+sync_session_maker: sessionmaker = sessionmaker(bind=sync_engine)
 
 
 class Base(DeclarativeBase):
