@@ -29,7 +29,14 @@ class Settings(BaseSettings):
     # Настройки сервиса.
     ASGI_PORT: int = 80
     DEBUG: bool = False
+    DEBUG_DB: bool = False
     WORKERS_AMOUNT: int = 4
+
+    # Настройки токенов JWT.
+    JWT_SECRET_KEY: str
+    JWT_ALGORITHM: str
+    JWT_ACCESS_TOKEN_EXPIRES_MIN: int
+    JWT_REFRESH_TOKEN_EXPIRES_MIN: int
 
 
 settings = Settings()
