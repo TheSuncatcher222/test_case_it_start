@@ -1,0 +1,110 @@
+# Client powered by
+#   Name: REST Client
+#   Id: humao.rest-client
+#   Description: REST Client for Visual Studio Code
+#   Version: 0.25.1
+#   Publisher: Huachao Mao
+#   VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+
+
+##########################################################################
+################################## AUTH ##################################
+##########################################################################
+
+
+###
+POST http://127.0.0.1:8000/api/v1/auth/login/ HTTP/1.1
+Accept-Language: en-US,en;q=0.8
+Accept-Language: ru-RU
+Content-Type: application/json
+User-Agent: custom_vscode-restclient
+
+{
+    "email": "thesuncatcher222@gmail.com",
+    "password": "MyPass!1"
+}
+
+###
+POST http://127.0.0.1:8000/api/v1/auth/refresh/ HTTP/1.1
+Accept-Language: en-US,en;q=0.8
+Accept-Language: ru-RU
+Content-Type: application/json
+Authorization: Bearer {jwt_refresh}
+User-Agent: custom_vscode-restclient
+
+
+##########################################################################
+################################# DEVICES ################################
+##########################################################################
+
+
+###
+GET http://127.0.0.1:8000/api/v1/devices/ HTTP/1.1
+Accept-Language: en-US,en;q=0.8
+Accept-Language: ru-RU
+User-Agent: custom_vscode-restclient
+
+###
+POST http://127.0.0.1:8000/api/v1/devices/ HTTP/1.1
+Accept-Language: en-US,en;q=0.8
+Accept-Language: ru-RU
+Authorization: Bearer {jwt_access}
+Content-Type: application/json
+User-Agent: custom_vscode-restclient
+
+{
+    "serial": "ser006"
+}
+
+
+##########################################################################
+################################## USERS #################################
+##########################################################################
+
+
+###
+POST http://127.0.0.1:8000/api/v1/users/ HTTP/1.1
+Accept-Language: en-US,en;q=0.8
+Accept-Language: ru-RU
+Content-Type: application/json
+User-Agent: custom_vscode-restclient
+
+{
+    "first_name": "Кирилл",
+    "second_name": "Свидунович",
+    "email": "thesuncatcher222@gmail.com",
+    "password": "MyPass!1"
+}
+
+###
+GET http://127.0.0.1:8000/api/v1/users/my-devices/ HTTP/1.1
+Accept-Language: en-US,en;q=0.8
+Accept-Language: ru-RU
+Authorization: Bearer {jwt_access}
+User-Agent: custom_vscode-restclient
+
+###
+POST http://127.0.0.1:8000/api/v1/users/my-devices/1/send_data/ HTTP/1.1
+Accept-Language: en-US,en;q=0.8
+Accept-Language: ru-RU
+Content-Type: application/json
+Authorization: Bearer {jwt_access}
+User-Agent: custom_vscode-restclient
+
+{
+    "data_x": 4.14,
+    "data_y": 7.15,
+    "data_z": 1.16
+}
+
+###
+POST http://127.0.0.1:8000/api/v1/users/get-analysis/ HTTP/1.1
+Accept-Language: en-US,en;q=0.8
+Accept-Language: ru-RU
+Content-Type: application/json
+Authorization: Bearer {jwt_access}
+User-Agent: custom_vscode-restclient
+
+{
+    "from_date": "2024-01-01"
+}
