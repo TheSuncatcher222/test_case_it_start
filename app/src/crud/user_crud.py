@@ -21,4 +21,4 @@ class CrudUser(BaseAsyncCrud[User, UserCreate, UserUpdate]):
         return result.scalars().first()
 
 
-crud_user = CrudUser(User)
+user_crud = CrudUser(User)

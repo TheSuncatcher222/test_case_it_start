@@ -3,7 +3,7 @@ from fastapi_jwt import JwtAuthorizationCredentials
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.database.database import get_async_session
-from src.crud.user_crud import crud_user
+from src.crud.user_crud import user_crud
 from src.schemas.jwt_token import TokenAccessRefresh, UserLogin
 from src.security.password import verify_password
 from src.security.jwt_token import create_tokens, refresh_security
@@ -19,7 +19,7 @@ async def login(
     user_login: UserLogin,
     session: AsyncSession = Depends(get_async_session)
 ):
-    user = await crud_user.retrieve_by_email(session=session, email=user_login.email)
+    user = await user_crud.retrieve_by_email(session=session, email=user_login.email)
 
     if not user:
         raise HTTPException(

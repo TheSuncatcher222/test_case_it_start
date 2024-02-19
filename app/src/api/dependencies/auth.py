@@ -6,7 +6,7 @@ from jose import JWTError
 from pydantic import ValidationError
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.crud.user_crud import crud_user
+from src.crud.user_crud import user_crud
 from src.database.database import get_async_session
 from src.models.user import User
 from src.schemas.jwt_token import TokenPayload
@@ -36,7 +36,7 @@ async def get_user(
     session: AsyncSession,
     user_uid: UUID,
 ) -> User:
-    user = await crud_user.retrieve_by_uid(session=session, uid=user_uid)
+    user = await user_crud.retrieve_by_uid(session=session, uid=user_uid)
     if not user:
         raise HTTPException(
             detail='Пользователь не найден.',
