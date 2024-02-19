@@ -54,7 +54,9 @@ services:
     build:
       context: app
       dockerfile: Dockerfile
-    command: sh -c "python ./src/main.py"
+    command: sh -c "
+      celery -A src.celery.celery:celery_app worker --loglevel=INFO &
+      python ./src/main.py"
     depends_on:
       - it_start_redis
       - it_start_pg_database
