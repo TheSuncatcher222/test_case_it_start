@@ -2,6 +2,9 @@
 .env
 venv/
 
+# Analysis data json.
+app/src/reports/*.json
+
 # Python cache.
 __pycache__/
 .pyc
